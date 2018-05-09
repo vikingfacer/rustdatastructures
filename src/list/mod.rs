@@ -42,13 +42,21 @@ impl <T> List<T> {
 	}
 
 	pub fn front(&self) -> Option<&T>{
-		self.head.map(|node| {&node.elem})
+		self.head.as_ref().map(|node| {&node.elem})
 	}
 
+	pub fn mut_front(&mut self) ->Option<&mut T>{
+		self.head.as_mut().map(|node| {
+			&mut node.elem
+		})
+	}
+
+	// pub fn into_iter(self) -> intoIter<T> {
+	// 	intoIter(self)
+	// } 
+
 }
-impl<T> Option<T> {
-    pub fn as_ref(&self) -> Option<&T>;
-}
+
 impl<T> Drop for List<T> {
     fn drop(&mut self) {
         let mut cur_link = mem::replace(&mut self.head, None);
