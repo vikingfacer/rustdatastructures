@@ -1,5 +1,7 @@
+
 pub mod list{
 	use std::mem;
+
 
 #[derive(Debug)]
 pub struct List<T> {
@@ -13,6 +15,16 @@ pub struct List<T> {
 // }
 
 type Link<T> = Option<Box<Node<T>>>;
+
+pub struct IntoIter<T>(List<T>);
+
+pub struct Iter<'a, T:'a> {
+	next: Option<&'a Node<T>>,
+}
+
+pub struct IterMut<'a, T: 'a> {
+    next: Option<&'a mut Node<T>>,
+}
 
 #[derive(Debug)]
 struct Node<T>{
@@ -45,16 +57,23 @@ impl <T> List<T> {
 		self.head.as_ref().map(|node| {&node.elem})
 	}
 
-	pub fn mut_front(&mut self) ->Option<&mut T>{
+	pub fn front_mut(&mut self) ->Option<&mut T>{
 		self.head.as_mut().map(|node| {
 			&mut node.elem
 		})
 	}
 
-	// pub fn into_iter(self) -> intoIter<T> {
-	// 	intoIter(self)
-	// } 
+	pub fn into_iter(self) -> IntoIter<T> {
+		IntoIter(self)
+	} 
 
+	pub fn iter(&self) -> Iter<T>{
+        Iter{ next: self.head.as_ref().map(|node| &**node) }
+	}
+
+	pub fn mut_iter(&mut self) -> IterMut<T>{
+		IterMut{ next: self.head.as_mut().map(|node| &mut ** node)}
+	}
 }
 
 impl<T> Drop for List<T> {
@@ -66,5 +85,15 @@ impl<T> Drop for List<T> {
         }
     }
 }
-
 }
+
+#[macro_export]
+macro_rules! List {
+	($($element:expr),*)=> {
+		{
+			let mut l  = List::new();
+			$(l.insert($element);)*
+		l}
+	};
+}
+
