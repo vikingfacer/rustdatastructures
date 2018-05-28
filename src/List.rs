@@ -1,4 +1,5 @@
 
+#[macro_use]
 pub mod list{
 	use std::mem;
 
@@ -38,13 +39,13 @@ impl <T> List<T> {
 			head : None
 		}
 	}
-	
+
 	pub fn insert(&mut self, n : T){
-		let nu = Box::new(Node{elem : n, 
+		let nu = Box::new(Node{elem : n,
 				next : mem::replace(&mut self.head, None)});
 		self.head = Some(nu);
 	}
-	
+
 	pub fn pop(&mut self) -> Option<T>{
         self.head.take().map(|node| {
             let node = *node;
@@ -65,7 +66,7 @@ impl <T> List<T> {
 
 	pub fn into_iter(self) -> IntoIter<T> {
 		IntoIter(self)
-	} 
+	}
 
 	pub fn iter(&self) -> Iter<T>{
         Iter{ next: self.head.as_ref().map(|node| &**node) }
@@ -85,8 +86,6 @@ impl<T> Drop for List<T> {
         }
     }
 }
-}
-
 #[macro_export]
 macro_rules! List {
 	($($element:expr),*)=> {
@@ -96,4 +95,4 @@ macro_rules! List {
 		l}
 	};
 }
-
+}
