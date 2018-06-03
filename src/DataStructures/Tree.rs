@@ -1,9 +1,9 @@
 
 
-pub mod tree{
+pub mod Tree{
 
 pub struct Tree<T> {
-    root : Node<T>
+    root : Link<T>
 }
 
 #[derive(Debug)]
@@ -16,8 +16,8 @@ struct Node<T>{
 type Link<T> = Option<Box<Node<T>>>;
 
 impl<T> Tree<T> {
-    pub fn new() {
-        unimplemented!()
+    pub fn new() -> Self{
+        Tree{ root : None}
     }
 
 }
