@@ -5,10 +5,9 @@ use DataStructures::Tree::Tree::*;
 
 fn main() {
 
-	let li : List<u8> =  List![1, 2, 3];
-
-	let tr : Tree<u8> = Tree::new();
+	let this : Box<Node<u8>> = Box::new(Node{elem : 3, left : None, right : None});
 
 
-	println!("{:?}", li);
+
+	println!("{:?}", *this);
 }
