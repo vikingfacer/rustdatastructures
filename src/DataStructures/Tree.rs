@@ -12,6 +12,11 @@ pub enum Tree<T :Ord> {
     Empty
 }
 
+// enum ArgumentsForOverload<T :Ord> {
+//     NoArgs,
+//     OneArg,
+// }
+
 impl<T :Ord> Tree<T>{
     pub fn new() -> Tree<T>{
         Tree::Empty
