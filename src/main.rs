@@ -5,12 +5,15 @@ use DataStructures::Tree::Tree::*;
 
 fn main() {
 
-	let this : Box<Node<u8>> = Box::new(Node{elem : 3, left : None, right : None});
+	let mut t1 : Tree<u8> = Tree::new();
 
-	let mut _t = Tree::new();
-	_t.insert(8);
+	t1.insert(9);
+	t1.insert(1);
+	t1.insert(0);
+	t1.insert(10);
 
-	println!("{:?}", _t);
 
-	println!("{:?}", *this);
+
+	print!("{:?}",t1 );
+
 }
